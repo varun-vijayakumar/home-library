@@ -1,13 +1,36 @@
+/* Body styling with a Lord of the Rings background */
 body {
-    background-color: lightgreen; /* Light green background color */
+    background-image: url('/images/lotr_background.jpg'); /* Ensure you have this image in the static/images folder */
+    background-size: cover;
+    background-attachment: fixed;
+    color: #f5f5dc; /* Beige color for text */
+    font-family: 'Cinzel', serif; /* Fancy font, you can choose a different one if you prefer */
 }
 
+/* Footer styling */
 footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: white;
-    color: black;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+    color: white;
     text-align: center;
     padding: 1em 0;
+}
+
+/* Heading styling */
+h1 {
+    text-align: center;
+    font-size: 3em;
+    margin-top: 20px;
+}
+
+/* Link styling */
+a {
+    color: #d4af37; /* Gold color for links */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }
