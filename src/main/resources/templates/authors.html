@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<a th:href="@{/}">Home</a>
+<head>
+    <title>Authors</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <h1>Authors</h1>
+    <table border="1">
+        <tr>
+            <th>FirstName</th>
+            <th>LastName</th>
+        </tr>
+        <tr th:each="author : ${authors}">
+            <td th:text="${author.firstName}"></td>
+            <td th:text="${author.lastName}"></td>
+        </tr>
+    </table>
+    <h1></h1>
+    <!-- Include the footer fragment -->
+    <div th:insert="fragments/footer :: footer"></div>
+</body>
+</html>

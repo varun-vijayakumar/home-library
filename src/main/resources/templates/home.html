@@ -3,9 +3,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome to Home Library</title>
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
 </head>
 <body>
-<h1 th:text="${message}">Placeholder</h1>
+    <h1>Welcome to the Home Library</h1>
+    <p>Select a link below to navigate to the respective subpage:</p>
+    <ul>
+        <li><a th:href="@{/api/books}">Books</a></li>
+        <li><a th:href="@{/api/authors}">Authors</a></li>
+    </ul>
+    <!-- Include the footer fragment -->
+    <div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>
