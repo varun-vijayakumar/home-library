@@ -34,3 +34,32 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+/* New styles for LOTR-themed table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px;
+    text-align: left;
+    background-color: transparent;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+
+}
+
+td {
+    font-size: 13 px; /* Set font size for table data */
+}
+
+th {
+    background-color: #432616;/* #6b4226*/; /* Dark brown color for the header */
+    color: white; /* White text for better contrast */
+    font-size: 18px; /* Set font size for table headers */
+}
+
+tr:hover {
+    background-color: rgba(255, 255, 255, 0.4); /* Light transparent white for hover effect */
+}

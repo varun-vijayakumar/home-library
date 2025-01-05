@@ -1,7 +1,9 @@
 package com.vijavaru.homelibrary.services;
 
 import com.vijavaru.homelibrary.entities.Author;
+import com.vijavaru.homelibrary.repository.AuthorRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,9 +14,11 @@ import java.util.Optional;
 @Service
 @Slf4j
 public class AuthorService {
+    @Autowired
+    private AuthorRepository authorRepository;
 
-    public Optional<Long> createAuthor(Author author) {
-        return Optional.of(-1L);
+    public Author createAuthor(Author author) {
+        return authorRepository.save(author);
     }
 
     public void updateAuthor(Author author) {
@@ -23,20 +27,16 @@ public class AuthorService {
 
     public void deleteAuthor(Long id) {
         //log.info("deleteAuthor");
+        authorRepository.deleteById(id);
     }
 
     public Optional<Author> getAuthorById(Long authorId) {
-        //log.info("getAuthorById");
-        Author author1 = new Author("John", "Doe");
-        return Optional.of(author1);
+        return authorRepository.findById(authorId);
 
     }
 
     public List<Author> getAllAuthors() {
-        //log.info("getAllAuthors");
-        Author author1 = new Author("John", "Doe");
-        Author author2 = new Author("Jane", "Doe");
-        return new ArrayList<>(List.of(author1, author2));
+        return authorRepository.findAll();
     }
 
 }

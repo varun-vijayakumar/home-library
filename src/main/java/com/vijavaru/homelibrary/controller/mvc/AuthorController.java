@@ -1,11 +1,10 @@
-package com.vijavaru.homelibrary.controller;
+package com.vijavaru.homelibrary.controller.mvc;
 
 import com.vijavaru.homelibrary.entities.Author;
 import com.vijavaru.homelibrary.services.AuthorService;
-import com.vijavaru.homelibrary.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -15,7 +14,7 @@ import java.util.Optional;
 
 // to handle HTTP requests.
 @Controller
-@RequestMapping("/api/authors")
+@RequestMapping("/v1/homelibrary/authors")
 public class AuthorController {
     @Autowired
     private AuthorService authorService;
@@ -29,27 +28,30 @@ public class AuthorController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Author> getAuthorById(@PathVariable Long id) {
+    public String getAuthorById(@PathVariable Long id, Model model) {
         Optional<Author> author = authorService.getAuthorById(id);
-        if (author.isPresent()) {
-            return ResponseEntity.ok(author.get());
-        } else {
-            return ResponseEntity.notFound().build();
+        if (!author.isPresent() || author.isEmpty()) {
+            model.addAttribute("errorMessage", "Author not found");
+            return "error";
         }
+        model.addAttribute("author", author);
+        return "author";
     }
 
     @PostMapping
-    public ResponseEntity<Long> addAuthor(@RequestBody Author author) {
-        Optional<Long> authorId = authorService.createAuthor(author);
-        if (authorId.isPresent()) {
-            return ResponseEntity.ok(authorId.get());
+    public String addAuthor(@RequestBody Author author, Model model) {
+        Author savedAuthor = authorService.createAuthor(author);
+        if (savedAuthor != null) {
+            return "redirect:/authors";
         } else {
-            return ResponseEntity.internalServerError().build();
+            model.addAttribute("errorMessage", "Error creating author");
+            return "error";
         }
     }
 
-    @DeleteMapping
-    public void deleteAuthor(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public String deleteAuthor(@PathVariable Long id) {
         authorService.deleteAuthor(id);
+        return "redirect:/authors";
     }
 }

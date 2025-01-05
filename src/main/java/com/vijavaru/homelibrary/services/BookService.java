@@ -1,7 +1,11 @@
 package com.vijavaru.homelibrary.services;
 
+import com.vijavaru.homelibrary.entities.Author;
 import com.vijavaru.homelibrary.entities.Book;
+import com.vijavaru.homelibrary.repository.AuthorRepository;
+import com.vijavaru.homelibrary.repository.BookRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,8 +16,11 @@ import java.util.Optional;
 @Service
 @Slf4j
 public class BookService {
-    public Optional<Long> createBook(Book book) {
-        return Optional.of(1001L);
+    @Autowired
+    private BookRepository bookRepository;
+
+    public Book createBook(Book book) {
+        return bookRepository.save(book);
     }
 
     public void updateBook(Book book) {
@@ -21,19 +28,16 @@ public class BookService {
     }
 
     public void deleteBook(Long id) {
-        //log.info("deleteBook");
+        System.out.println("DevDBG - "+id);
+        bookRepository.deleteById(id);
     }
 
     public Optional<Book> getBookById(Long bookId) {
         //log.info("getBook");
-        Book book1 = new Book("TestBook1");
-        return Optional.of(book1);
+       return bookRepository.findById(bookId);
     }
 
     public List<Book> getAllBooks() {
-        //log.info("getAllBooks");
-        Book book1 = new Book("TestBook1");
-        Book book2 = new Book("TestBook2");
-        return new ArrayList<>(List.of(book1, book2));
+        return bookRepository.findAll();
     }
 }
